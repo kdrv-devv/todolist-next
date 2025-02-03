@@ -1,15 +1,23 @@
+"use client";
 import { FaPencil } from "react-icons/fa6";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoListSharp } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 const Home = () => {
+  const router = useRouter();
+    const [isClient, setIsClient] = useState(false);
+      useEffect(() => {
+          setIsClient(true);
+        }, []);
+      
+        if (!isClient) return null; // Server tarafda hech narsa render qilinmaydi
+
   return (
     <section className="todo-list">
-
-     
-
       <header className="todo-header sticky top-0  bg-[#9395d3]">
         <div className="container flex items-center justify-between py-5">
           <h1 className="font-[600] text-[24px] text-[#fff]"> TODO APP</h1>
@@ -33,7 +41,7 @@ const Home = () => {
                 <h4 className="font-[400] text-[10px]">TODO SUB TITLE</h4>
               </div>
               <div className="todo-actions flex items-center gap-[20px] text-[#B3B7EE]">
-                <button>
+                <button onClick={() => router.push("/edittask")}>
                   <FaPencil />
                 </button>
                 <button>
@@ -49,15 +57,18 @@ const Home = () => {
       </section>
 
       <footer className="footer sticky bottom-0 bg-[#ffff]">
-      <button className="w-[50px] h-[50px] absolute top-[-55px] right-[20px]  rounded-[100%] bg-[#9395d3] text-[#fff] flex items-center justify-center ">
-      <FaPlus />
-      </button>
+        <button
+          onClick={() => router.push("/addtask")}
+          className="w-[50px] h-[50px] absolute top-[-55px] right-[20px]  rounded-[100%] bg-[#9395d3] active:bg-[#515386] text-[#fff] flex items-center justify-center "
+        >
+          <FaPlus className="transition-transform duration-200 active:rotate-90" />
+        </button>
         <div className="container flex items-center justify-around py-[10px]">
           <button className="flex flex-col items-center text-[#9395D3] ">
             <IoListSharp />
             <h5>All</h5>
           </button>
-          <button className="flex flex-col items-center text-[#9395D3]">
+          <button onClick={()=> router.push("/completed")} className="flex flex-col items-center text-[#9395D3]">
             <FaCheck />
             <h5>Completed</h5>
           </button>
