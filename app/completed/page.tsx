@@ -10,12 +10,12 @@ const Completed = () => {
   useEffect(() => {
       setIsClient(true);
     }, []);
-  
+    
     if (!isClient) return null; // Server tarafda hech narsa render qilinmaydi
-
-
-
   //   localStorage bilan ishlash start
+
+
+  
 
   return (
     <section className="todo-list">

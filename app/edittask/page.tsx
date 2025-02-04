@@ -12,6 +12,9 @@ const EditTask = () => {
     
       if (!isClient) return null; // Server tarafda hech narsa render qilinmaydi
 
+      
+
+
 
 
   return (
@@ -35,8 +38,8 @@ const EditTask = () => {
                  <input className="outline-none border-b-2 pb-[10px] border-[#8B8787]" type="text" placeholder="Detail" />
                </div>
                 <div className='flex items-center justify-between'>
-               <button className="update shadow-md font-[400] text-[15px] text-[#fff] bg-[#9395d3] rounded-[15px] w-[47%] h-[65px]">Update</button>
-               <button onClick={()=> router.push("/")} className="cancel  shadow-md font-[400] text-[15px] text-[#fff] bg-[#9395d3] rounded-[15px] w-[47%] h-[65px]">Cancel</button>
+               <button className="update shadow-md font-[400] text-[15px] text-[#fff] bg-[#9395d3] transition-all active:bg-[#5b5d91] rounded-[15px] w-[47%] h-[65px]">Update</button>
+               <button onClick={()=> router.push("/")} className="cancel  shadow-md font-[400] text-[15px] text-[#fff] bg-[#9395d3] transition-all active:bg-[#5b5d91] rounded-[15px] w-[47%] h-[65px]">Cancel</button>
                 </div>
              </form>
            </div>
