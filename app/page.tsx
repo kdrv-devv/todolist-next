@@ -22,7 +22,22 @@ const Home = () => {
   if (!isClient) return null; // Server tarafda hech narsa render qilinmaydi
 
 
-  
+  // const editTask =(id:string)=>{
+  //   useEffect(() => {
+  //     setIsClient(true);
+  //     if (typeof window !== "undefined") {
+  //       const existingTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+  //       const editedTask = existingTasks.filter((value:any) => value )
+  //       setAllTasks(existingTasks);
+  //     }
+  //   }, []);
+
+  // }
+
+
+
+
+
   return (
     <section className="todo-list">
       <header className="todo-header sticky top-0  bg-[#9395d3]">
