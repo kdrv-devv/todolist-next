@@ -7,6 +7,9 @@ import { FaCheck } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { TaskType } from "./@types";
+import noTaskimg from '../public/notask.png'
+import Image from "next/image";
 const Home = () => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
@@ -21,6 +24,17 @@ const Home = () => {
 
   if (!isClient) return null; // Server tarafda hech narsa render qilinmaydi
 
+
+  const editTask = (id:string)=>{
+    router.push(`/edittask?id=${id}`)
+  }
+
+  const deleteTask =(id:string)=>{
+    const existingTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    const filteredTasks = existingTasks.filter((value:TaskType) => value.id !== id)
+    setAllTasks(filteredTasks)
+    localStorage.setItem("tasks" , JSON.stringify(filteredTasks))
+  }
 
   // const editTask =(id:string)=>{
   //   useEffect(() => {
@@ -64,10 +78,10 @@ const Home = () => {
                   <h4 className="font-[400] text-[10px]">{value.descrip}</h4>
                 </div>
                 <div className="todo-actions flex items-center gap-[20px] text-[#B3B7EE]">
-                  <button onClick={() => router.push("/edittask")}>
+                  <button onClick={()=>editTask(value.id)}>
                     <FaPencil />
                   </button>
-                  <button>
+                  <button onClick={()=> deleteTask(value.id)}>
                     <FaRegTrashCan />
                   </button>
                   <button>
@@ -77,7 +91,12 @@ const Home = () => {
               </div>
             ))
           ) : (
-            <h1 className="">hali task yo'q</h1>
+            <div className=" h-[400px] flex items-center justify-center ">
+              <div className="flex flex-col gap-1 items-center">
+                  <Image src={noTaskimg} width={130} height={130} alt=""/>
+                  <p className="text-[18px] font-[600] text-[#4f5079]">Sizda tasklar mavjud emas</p>
+              </div>
+            </div>
           )}
         </div>
       </section>
