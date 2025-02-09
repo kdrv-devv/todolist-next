@@ -8,7 +8,7 @@ import { FaPlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { TaskType } from "./@types";
-import noTaskimg from '../public/notask.png'
+import noTaskimg from "../public/notask.png";
 import Image from "next/image";
 const Home = () => {
   const router = useRouter();
@@ -24,31 +24,27 @@ const Home = () => {
 
   if (!isClient) return null; // Server tarafda hech narsa render qilinmaydi
 
+  const editTask = (id: string) => {
+    router.push(`/edittask?id=${id}`);
+  };
 
-  const editTask = (id:string)=>{
-    router.push(`/edittask?id=${id}`)
-  }
-
-  const deleteTask =(id:string)=>{
+  const deleteTask = (id: string) => {
     const existingTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-    const filteredTasks = existingTasks.filter((value:TaskType) => value.id !== id)
-    setAllTasks(filteredTasks)
-    localStorage.setItem("tasks" , JSON.stringify(filteredTasks))
+    const filteredTasks = existingTasks.filter(
+      (value: TaskType) => value.id !== id
+    );
+    setAllTasks(filteredTasks);
+    localStorage.setItem("tasks", JSON.stringify(filteredTasks));
+  };
+
+  const completedTask = (id:string)=>{
+    const tasks = JSON.parse(localStorage.getItem("tasks") as string) || [];
+    const updatedTasks = tasks.map((t: TaskType) =>
+      t.id == id ? { ...t,  completed:!t.completed} : t
+    );
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setAllTasks(updatedTasks)
   }
-
-  // const editTask =(id:string)=>{
-  //   useEffect(() => {
-  //     setIsClient(true);
-  //     if (typeof window !== "undefined") {
-  //       const existingTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-  //       const editedTask = existingTasks.filter((value:any) => value )
-  //       setAllTasks(existingTasks);
-  //     }
-  //   }, []);
-
-  // }
-
-
 
 
 
@@ -72,19 +68,19 @@ const Home = () => {
                 className="todo-item flex items-center justify-between h-[82px] bg-[#fff] w-full rounded-[15px] p-[20px]"
               >
                 <div className="todo-task flex flex-col ">
-                  <h3 className="text-[#9395d3] font-[600] text-[13px]">
+                  <h3 className={`text-[#9395d3] font-[600] ${value.completed ? "line-through":""} text-[18px]`}>
                     {value.title}
                   </h3>
-                  <h4 className="font-[400] text-[10px]">{value.descrip}</h4>
+                  <h4 className={`font-[400] text-[12px] ${value.completed ? "line-through":""}`}>{value.descrip}</h4>
                 </div>
                 <div className="todo-actions flex items-center gap-[20px] text-[#B3B7EE]">
-                  <button onClick={()=>editTask(value.id)}>
+                  <button onClick={() => editTask(value.id)}>
                     <FaPencil />
                   </button>
-                  <button onClick={()=> deleteTask(value.id)}>
+                  <button onClick={() => deleteTask(value.id)}>
                     <FaRegTrashCan />
                   </button>
-                  <button>
+                  <button onClick={()=> completedTask(value.id)}>
                     <FaRegCheckCircle />
                   </button>
                 </div>
@@ -93,8 +89,10 @@ const Home = () => {
           ) : (
             <div className=" h-[400px] flex items-center justify-center ">
               <div className="flex flex-col gap-1 items-center">
-                  <Image src={noTaskimg} width={130} height={130} alt=""/>
-                  <p className="text-[18px] font-[600] text-[#4f5079]">Sizda tasklar mavjud emas</p>
+                <Image src={noTaskimg} width={130} height={130} alt="" />
+                <p className="text-[18px] font-[600] text-[#4f5079]">
+                  Sizda tasklar mavjud emas
+                </p>
               </div>
             </div>
           )}
