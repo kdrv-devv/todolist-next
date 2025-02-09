@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { TaskType } from "./@types";
 import noTaskimg from "../public/notask.png";
 import Image from "next/image";
+import dayjs from "dayjs";
 const Home = () => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
@@ -37,24 +38,23 @@ const Home = () => {
     localStorage.setItem("tasks", JSON.stringify(filteredTasks));
   };
 
-  const completedTask = (id:string)=>{
+  const completedTask = (id: string) => {
     const tasks = JSON.parse(localStorage.getItem("tasks") as string) || [];
     const updatedTasks = tasks.map((t: TaskType) =>
-      t.id == id ? { ...t,  completed:!t.completed} : t
+      t.id == id ? { ...t, completed: !t.completed } : t
     );
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    setAllTasks(updatedTasks)
-  }
-
-
+    setAllTasks(updatedTasks);
+  };
 
   return (
     <section className="todo-list">
       <header className="todo-header sticky top-0  bg-[#9395d3]">
         <div className="container flex items-center justify-between py-5">
           <h1 className="font-[600] text-[24px] text-[#fff]"> TODO APP</h1>
-          <button className="w-[40px] h-[40px] bg-transparent text-[#fff] font-[500] border-2 rounded-[10px] text-[]">
-            15
+          <button className="w-[50px] h-[50px] bg-transparent text-[#fff] font-[500] border-2 rounded-[10px] text-[]">
+            {dayjs().format("D")}
+            <p className="text-[9px] text-[#fff]">{dayjs().format("MMMM")}</p>
           </button>
         </div>
       </header>
@@ -68,10 +68,20 @@ const Home = () => {
                 className="todo-item flex items-center justify-between h-[82px] bg-[#fff] w-full rounded-[15px] p-[20px]"
               >
                 <div className="todo-task flex flex-col ">
-                  <h3 className={`text-[#9395d3] font-[600] ${value.completed ? "line-through":""} text-[18px]`}>
+                  <h3
+                    className={`text-[#9395d3] font-[600] ${
+                      value.completed ? "line-through" : ""
+                    } text-[18px]`}
+                  >
                     {value.title}
                   </h3>
-                  <h4 className={`font-[400] text-[12px] ${value.completed ? "line-through":""}`}>{value.descrip}</h4>
+                  <h4
+                    className={`font-[400] text-[12px] ${
+                      value.completed ? "line-through" : ""
+                    }`}
+                  >
+                    {value.descrip}
+                  </h4>
                 </div>
                 <div className="todo-actions flex items-center gap-[20px] text-[#B3B7EE]">
                   <button onClick={() => editTask(value.id)}>
@@ -80,7 +90,7 @@ const Home = () => {
                   <button onClick={() => deleteTask(value.id)}>
                     <FaRegTrashCan />
                   </button>
-                  <button onClick={()=> completedTask(value.id)}>
+                  <button onClick={() => completedTask(value.id)}>
                     <FaRegCheckCircle />
                   </button>
                 </div>
