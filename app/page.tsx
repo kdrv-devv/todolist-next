@@ -12,9 +12,17 @@ import noTaskimg from "../public/notask.png";
 import Image from "next/image";
 import dayjs from "dayjs";
 const Home = () => {
+
+
+
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const [alltasks, setAllTasks] = useState([]);
+
+
   useEffect(() => {
     setIsClient(true);
     if (typeof window !== "undefined") {
@@ -46,6 +54,10 @@ const Home = () => {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setAllTasks(updatedTasks);
   };
+
+  // telefon uchun
+
+
 
   return (
     <section className="todo-list">
@@ -134,4 +146,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home

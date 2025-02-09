@@ -56,10 +56,10 @@ const Completed = () => {
                 className="todo-item flex items-center justify-center h-[82px] bg-[#fff] w-full rounded-[15px] p-[20px]"
               >
                 <div className="todo-task flex flex-col ">
-                  <h3 className="text-[#9395d3] font-[600] text-[13px]">
+                  <h3 className="text-[#9395d3] font-[600] text-[20px]">
                     {value.title}
                   </h3>
-                  <h4 className="font-[400] text-[10px]">{value.descrip}</h4>
+                  <h4 className="font-[400] text-[14px]">{value.descrip}</h4>
                 </div>
               </div>
             ))
