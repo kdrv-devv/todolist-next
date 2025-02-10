@@ -1,18 +1,17 @@
-import type { Metadata } from "next"; // ✅ To'g'ri import
-
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
+
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-
 const inter = Inter({
   variable: "--inter",
   subsets: ["latin"],
-  weight:["100", "300" ,"400", "500" , '600' ,"700"]
+  weight: ["100", "300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -23,9 +22,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} antialiased`}
-      >
+      <body className={`${inter.className} antialiased`}>
         {children}
         <ToastContainer
           position="top-right"
