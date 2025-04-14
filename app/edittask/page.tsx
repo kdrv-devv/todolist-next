@@ -20,6 +20,7 @@ const EditTask = () => {
       if (task) {
         setUpdateTask(task.title);
         setUpdateDescrip(task.descrip);
+        
       }
     }
   }, [id]);
